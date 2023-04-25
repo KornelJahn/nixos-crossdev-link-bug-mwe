@@ -15,9 +15,7 @@
     device = "/dev/vda";
   };
 
-  environment.systemPackages = [
-    self.packages.${config.nixpkgs.hostPlatform}.default
-  ];
+  environment.systemPackages = [ self.packages.x86_64-linux.default ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos-root";
