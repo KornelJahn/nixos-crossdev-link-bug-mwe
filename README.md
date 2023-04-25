@@ -1,10 +1,10 @@
 # MWE for the "Invalid cross-device link" bug
 
-When installing NixOS one may encounter a cryptic "Invalid cross-device link" bug. This is a minimal working example flake for reproducing such a bug.
+When installing NixOS one may encounter a cryptic "Invalid cross-device link" bug. This is a minimal working example flake for reproducing this bug.
 
 ## Steps to reproduce
 
-1. Boot a NixOS ISO image in a QEMU VM using BIOS boot and using a VirtIO virtual hard disk. Optionally set a password using `passwd` for the `nixos` user so the process can be continued over SSH.
+1. Boot a NixOS ISO image in a QEMU VM using BIOS boot and using a VirtIO virtual hard disk. Optionally, set a password using `passwd` for the `nixos` user so that the process could be continued over SSH.
 
 2. Enter a Nix shell with Git and with the new Nix command syntax & Flakes enabled:
 
@@ -18,7 +18,7 @@ When installing NixOS one may encounter a cryptic "Invalid cross-device link" bu
 
         cd nixos-crossdev-link-bug-mwe
 
-5. First, try to enter a Nix shell with the default package as
+5. First, try to enter a Nix shell featuring the default package as
 
         nix shell .#
 
@@ -39,11 +39,11 @@ When installing NixOS one may encounter a cryptic "Invalid cross-device link" bu
 
    This is what we expect: a meaningful error message.
 
-6. Now try to install NixOS with the configuration named `nixos` (:warning: ALL DATA ON THE TARGET VIRTUAL HARD DISK WILL BE WIPED! :warning:):
+6. Now try to install NixOS as follows (:warning: THE TARGET VIRTUAL HARD DISK IS WIPED! :warning:):
 
         ./install.bash
 
-   Toward the end of the process, it should also fail, but this time, with a different error:
+   Toward the end of the process, it should also fail, but this time, with a different error message:
 
    ```
    error: filesystem error: cannot rename: Invalid cross-device link [/mnt/nix/store/n7mkzq126vljwpvm5cy9kj9skzg8q47w-my-script.drv.chroot/nix/store/d585g86virsxax1msalmx5z8wb0mvk81-my-script] [/nix/store/d585g86virsxax1msalmx5z8wb0mvk81-my-script]
