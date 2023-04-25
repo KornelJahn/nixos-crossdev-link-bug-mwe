@@ -1,16 +1,12 @@
 # Minimal Working Example for the "Invalid cross-device link" bug
 
-When installing NixOS one may encounter a cryptic "Invalid cross-device link"
-bug. This is a minimal working example flake for reproducing such a bug.
+When installing NixOS one may encounter a cryptic "Invalid cross-device link" bug. This is a minimal working example flake for reproducing such a bug.
 
 ## Steps to reproduce
 
-1. Boot a NixOS ISO image in a QEMU VM using BIOS boot and using a VirtIO virtual
-   hard disk. Optionally set a password using `passwd` for the `nixos` user so
-   the process can be continued over SSH.
+1. Boot a NixOS ISO image in a QEMU VM using BIOS boot and using a VirtIO virtual hard disk. Optionally set a password using `passwd` for the `nixos` user so the process can be continued over SSH.
 
-2. Enter a Nix shell with Git and with the new Nix command syntax & Flakes
-   enabled:
+2. Enter a Nix shell with Git and with the new Nix command syntax & Flakes enabled:
 
         NIX_CONFIG='experimental-features = nix-command flakes' nix-shell -p git
 
@@ -43,19 +39,15 @@ bug. This is a minimal working example flake for reproducing such a bug.
 
    This is what we expect: a meaningful error message.
 
-6. Now try to install NixOS with the configuration named `nixos` (:warning: ALL
-   DATA ON THE TARGET VIRTUAL HARD DISK WILL BE WIPED! :warning:):
+6. Now try to install NixOS with the configuration named `nixos` (:warning: ALL DATA ON THE TARGET VIRTUAL HARD DISK WILL BE WIPED! :warning:):
 
         ./install.bash
 
-   Toward the end of the process, it should also fail with the following error:
+   Toward the end of the process, it should also fail, but this time, with a different error:
 
    ```
+   error: filesystem error: cannot rename: Invalid cross-device link [/mnt/nix/store/n7mkzq126vljwpvm5cy9kj9skzg8q47w-my-script.drv.chroot/nix/store/d585g86virsxax1msalmx5z8wb0mvk81-my-script] [/nix/store/d585g86virsxax1msalmx5z8wb0mvk81-my-script]
    ```
 
-Note that correcting the error in the script results in a successful
-installation.
-
-
-
+The latter error message is probably caused by the same kernel-related issue as described [here](https://github.com/qbittorrent/qBittorrent/issues/17352). Note that correcting the error in the script inside `flake.nix` (e.g. by commenting the line `unused=`) results in a successful installation since ShellCheck won't complain anymore.
 
