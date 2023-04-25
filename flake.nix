@@ -16,15 +16,13 @@
 
       formatter.${system} = pkgs.nixpkgs-fmt;
 
-      packages.${system} = {
-        myScript = pkgs.writeShellApplication {
-          name = "my-script";
-          text = ''
-            # NOTE: shellcheck should throw an error for this line!
-            unused=
-            echo 'Hello World!'
-          '';
-        };
+      packages.${system}.default = pkgs.writeShellApplication {
+        name = "my-script";
+        text = ''
+          # NOTE: shellcheck should throw an error for this line!
+          unused=
+          echo 'Hello World!'
+        '';
       };
     };
 }

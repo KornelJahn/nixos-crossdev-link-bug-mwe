@@ -16,7 +16,7 @@
   };
 
   environment.systemPackages = [
-    self.packages.${config.nixpkgs.hostPlatform}.myScript
+    self.packages.${config.nixpkgs.hostPlatform}.default
   ];
 
   fileSystems."/" = {
@@ -28,7 +28,7 @@
   swapDevices = [ ];
 
   networking.hostName = "nixos";
-  networking.useDHCP = lib.mkDefault true;
+  networking.useDHCP = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
