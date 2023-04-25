@@ -15,6 +15,6 @@ udevadm settle
 sudo mkfs.ext4 -F -L nixos-root "${dev}1"
 sudo mount -o noatime "${dev}1" /mnt
 
-sudo nixos-install --flake .#nixos --no-root-passwd
+sudo nixos-install --flake .#nixos --no-root-passwd --show-trace
 
 # vim: ft=bash:ts=2:sw=2:et
