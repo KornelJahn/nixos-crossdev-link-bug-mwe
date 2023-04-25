@@ -1,4 +1,4 @@
-# Minimal Working Example for the "Invalid cross-device link" bug
+# MWE for the "Invalid cross-device link" bug
 
 When installing NixOS one may encounter a cryptic "Invalid cross-device link" bug. This is a minimal working example flake for reproducing such a bug.
 
